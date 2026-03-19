@@ -1,0 +1,38 @@
+# Walkthrough: Modernisasi SISE2026 Jember
+
+Dokumen ini mencatat langkah-langkah implementasi perbaikan berdasarkan Analisis Menyeluruh.
+
+## Prioritas 1: Security & Environment (SELESAI)
+- [x] **P1-2: Environment Config**: Implementasi [.env](file:///c:/laragon/www/se2026-jember/.env) via `vlucas/phpdotenv`.
+- [x] **P1-5: Folder Security**: Proteksi `uploads/` via [.htaccess](file:///c:/laragon/www/se2026-jember/uploads/.htaccess).
+- [x] **P1-7 & P1-8: Secure Cookies & HTTPS**: Hardening [config/config.php](file:///c:/laragon/www/se2026-jember/config/config.php).
+- [x] **P1-3 & P1-4: CSRF & Session**: Rotasi token CSRF dan `session_regenerate_id` pada [src/auth.php](file:///c:/laragon/www/se2026-jember/src/auth.php).
+- [x] **P1-6: File Validation**: Validasi MIME type pada semua titik upload (KTP, Ijazah, Foto, Materi, SK).
+
+## Prioritas 2: Refactoring & Quality (SELESAI)
+- [x] **MVC Refactoring**: Memecah [index.php](file:///c:/laragon/www/se2026-jember/index.php) dan [functions.php](file:///c:/laragon/www/se2026-jember/src/functions.php) menjadi:
+    - `src/Controllers/` (Router logic)
+    - `src/Models/` (Database logic)
+    - `src/Utils/` (Helper logic)
+- [x] **PSR-4 & Composer**: Implementasi autoloading standar industri. Menghilangkan `require_once` manual yang berantakan.
+- [x] **Pagination**: Implementasi sistem halaman pada daftar Lowongan, Pengumuman, Materi Pelatihan, Anomali, dan Surat/SK.
+- [x] **Legacy Cleanup**: Verifikasi tabel `pendaftaran` (kosong, siap dihapus) dan migrasi ke `pendaftaran_petugas`.
+
+## Verifikasi Akhir
+### 1. Automated Tests
+Berhasil menjalankan suite pengujian regresi:
+- **Security Tests**: 20/20 Lulus (CSRF, MIME, Session, HSTS).
+- **Utility Tests**: Semua Lulus (Autoloading, Sanitasi, Formatting).
+
+### 2. Struktur Proyek Baru
+```text
+/config/        -> Konfigurasi & Database
+/src/
+  /Controllers/ -> Logika Alur (POST handling)
+  /Models/      -> Logika Data (SQL)
+  /Utils/       -> Helper (Upload, UI)
+/vendor/        -> Autoloader Composer
+/views/         -> Template UI (Tetap bersih)
+```
+
+Semua sistem berjalan normal dengan struktur yang lebih modern dan mudah dikembangkan.

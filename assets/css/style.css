@@ -1,0 +1,162 @@
+/* =========================================================================
+ * Style SISE2026 BPS Kabupaten Jember
+ * Gradasi 70:30, Animasi, Navigation, Forms, Dashboard
+ * ========================================================================= */
+
+:root {
+    --se-orange: #FF6B35;
+    --se-orange-dark: #E85A2A;
+    --se-white: #FFFFFF;
+    --se-slate: #0F172A;
+}
+
+/* 1. Background Gradient SE2026 */
+.se-gradient-bg {
+    background-color: var(--se-orange);
+    background-image: linear-gradient(to bottom, #FF6B35 70%, #FFFFFF 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* 2. Scroll Reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Varian reveal ini dipakai di beberapa halaman dashboard lama. */
+.animate-reveal-left {
+    animation: revealLeft 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes revealLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 3. Typewriter Cursor */
+.cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1.2em;
+    background-color: currentColor;
+    margin-left: 5px;
+    vertical-align: middle;
+    animation: blink 0.8s step-end infinite;
+}
+@keyframes blink {
+    from, to { background-color: transparent; }
+    50% { background-color: currentColor; }
+}
+
+/* 4. 3D Parallax Card */
+.perspective { perspective: 1000px; }
+.parallax-card {
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+.parallax-card > * { transform: translateZ(20px); }
+
+/* 5. Backdrop Support */
+.backdrop-blur {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* 6. Button Animations */
+.btn-animate {
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+}
+.btn-animate:hover { transform: scale(1.05); }
+.btn-animate:active { transform: scale(0.95); }
+
+/* 7. Skeleton Loading */
+.pulse-loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+@keyframes loading {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+}
+
+.animate-spin-slow {
+    animation: spin 2.8s linear infinite;
+}
+
+/* 8. Dropdown Navigation */
+.dropdown-panel {
+    transform: translateY(8px);
+    transition: all 0.2s ease;
+}
+.group:hover .dropdown-panel {
+    transform: translateY(0);
+}
+
+/* 9. Flash Message Animation */
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+.animate-slide-in {
+    animation: slideIn 0.35s ease-out;
+}
+
+/* 10. Scrollbar Hide (for sub-nav) */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* 11. Table Styles */
+table th {
+    white-space: nowrap;
+}
+table td {
+    vertical-align: middle;
+}
+
+/* 12. Form Focus Ring */
+input:focus, select:focus, textarea:focus {
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+}
+
+/* 13. Print Styles */
+@media print {
+    nav, footer, .btn-animate, button {
+        display: none !important;
+    }
+    .se-gradient-bg {
+        background: white !important;
+    }
+    main {
+        padding: 0 !important;
+    }
+}
+
+/* 14. Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .reveal, .parallax-card, .btn-animate, .dropdown-panel {
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+        animation: none !important;
+    }
+}

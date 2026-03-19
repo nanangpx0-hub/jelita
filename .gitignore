@@ -1,0 +1,22 @@
+# Environment
+.env
+
+# Uploads
+uploads/
+
+# IDE
+.qoder/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+
+# Composer
+vendor/
